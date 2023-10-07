@@ -26,6 +26,8 @@ const List<NavDestination> destinations = [
 
 class Routes {
   static const app = 'home';
+  static const splash = 'splash';
+  static const emailList = 'emailList';
 }
 
 final GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
@@ -33,6 +35,7 @@ final GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
 class NavigationService {
   final _appRoutes = {
     Routes.app: (_) => const MainScreen(),
+    Routes.emailList: (_) => const EmailListScreen(),
   };
 
   // iOS: full screen routes pop up from the bottom and disappear vertically too

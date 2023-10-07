@@ -62,6 +62,9 @@ class MyApp extends StatelessWidget {
               ],
               onGenerateTitle: (BuildContext context) => S.of(context).appTitle,
               theme: context.watch<ThemeCubit>().getDefaultTheme(),
+              // theme: ThemeData(
+              //   useMaterial3: true,
+              // ),
               darkTheme: context.watch<ThemeCubit>().darkTheme,
               themeMode: context.watch<ThemeCubit>().themeMode,
               navigatorKey: appNavigatorKey,
