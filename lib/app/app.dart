@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_app_template/bloc/authentication/authentication_bloc.dart';
 import 'package:flutter_bloc_app_template/bloc/init/init_bloc.dart';
 import 'package:flutter_bloc_app_template/di/di_container.dart';
 import 'package:flutter_bloc_app_template/generated/l10n.dart';
 import 'package:flutter_bloc_app_template/index.dart';
+import 'package:flutter_bloc_app_template/repository/authentication_repository.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatelessWidget {
@@ -16,6 +18,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<AuthenticationRepository>(
+          create: (context) => AuthenticationRepository(),
+        ),
+        RepositoryProvider<UserRepository>(
+          create: (context) => UserRepository(),
+        ),
         RepositoryProvider<EmailListRepository>(
           create: (context) => EmailListRepository(),
         ),
@@ -27,6 +35,12 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => ThemeCubit(diContainer.get())..loadTheme(),
+          ),
+          BlocProvider(
+            create: (context) => AuthenticationBloc(
+              authenticationRepository: RepositoryProvider.of<AuthenticationRepository>(context), 
+              userRepository: RepositoryProvider.of<UserRepository>(context)
+              )
           ),
           BlocProvider(
             create: (context) => EmailListBloc(
@@ -70,11 +84,19 @@ class MyApp extends StatelessWidget {
               navigatorKey: appNavigatorKey,
               onGenerateRoute: navigator.onGenerateRoute,
               builder: (_, child) {
-                return BlocListener<InitBloc, InitState>(
+                return BlocListener<AuthenticationBloc, AuthenticationState>(
                   listener: (_, state) {
-                    if (state is OpenApp) {
-                      navigator.pushAndRemoveAll(Routes.app);
+                    switch (state.status) {
+                      case AuthenticationStatus.authenticated:
+                        navigator.pushAndRemoveAll(Routes.app);
+                      case AuthenticationStatus.unauthenticated:
+                        navigator.pushAndRemoveAll(Routes.login);
+                      case AuthenticationStatus.unknown:
+                        break;
                     }
+                    // if (state is OpenApp) {
+                    //   navigator.pushAndRemoveAll(Routes.app);
+                    // }
                   },
                   child: child,
                 );

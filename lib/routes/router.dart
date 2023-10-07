@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app_template/index.dart';
+import 'package:flutter_bloc_app_template/view/login/login_page.dart';
 
 const List<NavDestination> destinations = [
   NavDestination(
@@ -27,6 +28,7 @@ const List<NavDestination> destinations = [
 class Routes {
   static const app = 'home';
   static const splash = 'splash';
+  static const login = 'login';
   static const emailList = 'emailList';
 }
 
@@ -36,6 +38,7 @@ class NavigationService {
   final _appRoutes = {
     Routes.app: (_) => const MainScreen(),
     Routes.emailList: (_) => const EmailListScreen(),
+    Routes.login: (_) => const LoginPage(),
   };
 
   // iOS: full screen routes pop up from the bottom and disappear vertically too
