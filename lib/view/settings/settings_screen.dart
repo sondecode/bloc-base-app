@@ -71,8 +71,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             listener: (context, state) => Navigator.of(context).pop(),
           ),
-          BlocConsumer<ThemeCubit, AppTheme>(
-            builder: (context, state) => SettingCell.icon(
+          SettingCell.icon(
               icon: AppIcons.iconCheck,
               title: 'Logout',
               onTap: () {
@@ -81,8 +80,6 @@ class SettingsScreen extends StatelessWidget {
                     .add(AuthenticationLogoutRequested());
               },
             ),
-            listener: (context, state) => Navigator.of(context).pop(),
-          ),
         ],
       ),
     );

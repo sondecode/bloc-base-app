@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_bloc_app_template/constants/url.dart';
 import 'package:flutter_bloc_app_template/models/user.dart';
 import 'package:http/http.dart' as http;
 
-final _base = 'api.truyenthanhviet.com';
 final _tokenEndpoint = '/api/auth/login';
-final _tokenURL = Uri.https(_base , _tokenEndpoint);
+final _tokenURL = Uri.https(baseUrl , _tokenEndpoint);
 
 abstract class AuthenticationApi {
   Future<String> getToken(String u, String p);

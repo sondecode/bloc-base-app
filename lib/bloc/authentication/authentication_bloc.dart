@@ -37,10 +37,12 @@ class AuthenticationBloc
     final authToken = prefsUserData?.accessToken;
     print('ma xac thuc: $authToken');
     if (authToken != null && isTokenValid(authToken)) {
+      // ignore: invalid_use_of_visible_for_testing_member
       emit(
         AuthenticationState.authenticated(prefsUserData!)
       );
     } else {
+      // ignore: invalid_use_of_visible_for_testing_member
       emit(const AuthenticationState.unauthenticated());
     }
   }
@@ -90,7 +92,7 @@ class AuthenticationBloc
 
 bool isTokenValid(String authToken) {
   var decodedToken = Jwt.parseJwt(authToken);
-  int expiryTime = decodedToken['exp'];
+  var expiryTime = decodedToken['exp'] as int;
   var currentTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
   if (expiryTime > currentTime) {
     return true;

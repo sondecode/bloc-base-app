@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app_template/index.dart';
+import 'package:flutter_bloc_app_template/view/dashboard/dashboard_screen.dart';
 import 'package:flutter_bloc_app_template/view/login/login_page.dart';
 
 const List<NavDestination> destinations = [
@@ -9,7 +10,7 @@ const List<NavDestination> destinations = [
     label: 'Home',
     icon: Icon(Icons.home_filled),
     selectedIcon: Icon(Icons.home_filled),
-    screen: EmailListScreen(),
+    screen: DashboardScreen(),
   ),
   NavDestination(
     label: 'News',
@@ -29,6 +30,7 @@ class Routes {
   static const app = 'home';
   static const splash = 'splash';
   static const login = 'login';
+  static const dashboard = 'dashboard';
   static const emailList = 'emailList';
 }
 
@@ -38,6 +40,7 @@ class NavigationService {
   final _appRoutes = {
     Routes.app: (_) => const MainScreen(),
     Routes.emailList: (_) => const EmailListScreen(),
+    Routes.dashboard: (_) => const DashboardScreen(),
     Routes.login: (_) => const LoginPage(),
   };
 
