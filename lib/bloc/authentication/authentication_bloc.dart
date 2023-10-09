@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc_app_template/repository/authentication_repository.dart';
 import 'package:flutter_bloc_app_template/repository/user_repository.dart';
-
+import 'package:jwt_decode/jwt_decode.dart';
 import '../../models/models.dart';
 
 
@@ -19,6 +19,7 @@ class AuthenticationBloc
   })  : _authenticationRepository = authenticationRepository,
         _userRepository = userRepository,
         super(const AuthenticationState.unknown()) {
+          _initialize();
     on<_AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequested>(_onAuthenticationLogoutRequested);
     _authenticationStatusSubscription = _authenticationRepository.status.listen(
@@ -30,6 +31,19 @@ class AuthenticationBloc
   final UserRepository _userRepository;
   late StreamSubscription<AuthenticationStatus>
       _authenticationStatusSubscription;
+
+  Future<void> _initialize() async {
+    final prefsUserData = await _userRepository.getUser();
+    final authToken = prefsUserData?.accessToken;
+    print('ma xac thuc: $authToken');
+    if (authToken != null && isTokenValid(authToken)) {
+      emit(
+        AuthenticationState.authenticated(prefsUserData!)
+      );
+    } else {
+      emit(const AuthenticationState.unauthenticated());
+    }
+  }
 
   @override
   Future<void> close() {
@@ -71,5 +85,16 @@ class AuthenticationBloc
     } catch (_) {
       return null;
     }
+  }
+}
+
+bool isTokenValid(String authToken) {
+  var decodedToken = Jwt.parseJwt(authToken);
+  int expiryTime = decodedToken['exp'];
+  var currentTime = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+  if (expiryTime > currentTime) {
+    return true;
+  } else {
+    return false;
   }
 }

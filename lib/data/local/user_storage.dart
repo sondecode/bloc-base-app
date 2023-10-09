@@ -7,6 +7,8 @@ abstract class UserStorage {
   Future<void> saveUserAndToken(User user);
 
   Future<User> getUserData();
+
+  Future<void> clearUserData();
 }
 
 class SharedPreferencesUserStorage implements UserStorage {
@@ -34,5 +36,10 @@ class SharedPreferencesUserStorage implements UserStorage {
     var toBeSaved = jsonEncode(user.toJson());
     print('encode:$toBeSaved');
     await sharedPreferences.setString(_userData, toBeSaved);
+  }
+
+  @override
+  Future<void> clearUserData() async {
+    await sharedPreferences.remove(_userData);
   }
 }

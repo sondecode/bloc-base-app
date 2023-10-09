@@ -12,7 +12,7 @@ class AuthenticationRepository {
 
   Stream<AuthenticationStatus> get status async* {
     await Future<void>.delayed(const Duration(seconds: 1));
-    yield AuthenticationStatus.unauthenticated;
+    // yield AuthenticationStatus.unauthenticated;
     yield* _controller.stream;
   }
 
@@ -27,7 +27,14 @@ class AuthenticationRepository {
     }
   }
 
-  void logOut() {
+  Future<void> logOut() async {
+    try{
+      await _userStorage.clearUserData();
+       _controller.add(AuthenticationStatus.unauthenticated);
+    }
+    catch(e){
+      throw Exception('Logout failed');
+    }
     _controller.add(AuthenticationStatus.unauthenticated);
   }
 

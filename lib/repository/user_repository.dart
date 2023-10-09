@@ -8,6 +8,8 @@ abstract class UserRepository {
   Future<User?> getUser();
 
   Future<void> saveUserAndToken(User user);
+
+  Future<void> logOut();
 }
 class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl(this._userStorage);
@@ -33,5 +35,10 @@ class UserRepositoryImpl implements UserRepository {
     _user = user;
   }
   return _user;
+  }
+
+  @override
+  Future<void> logOut() async {
+    await _userStorage.clearUserData();
   }
 }
