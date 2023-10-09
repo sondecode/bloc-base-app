@@ -18,7 +18,8 @@ abstract class RepositoryModule {
   }
 
   @factoryMethod
-  AuthenticationRepository provideAuthenticationRepository(UserStorage userStorage) {
+  AuthenticationRepository provideAuthenticationRepository(UserStorage userStorage)
+  {
     return AuthenticationRepository(userStorage);
   }
 }

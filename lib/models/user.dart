@@ -4,9 +4,9 @@ class User extends Equatable {
   const User({
     required this.id,
     this.email,
-    this.name,
+    this.fullname,
     this.photo,
-    this.access_token,
+    this.accessToken,
   });
 
   /// The current user's email address.
@@ -16,13 +16,13 @@ class User extends Equatable {
   final String id;
 
   /// The current user's name (display name).
-  final String? name;
+  final String? fullname;
 
   /// Url for the current user's photo.
   final String? photo;
 
   /// The current user's name (display name).
-  final String? access_token;
+  final String? accessToken;
 
   /// Empty user which represents an unauthenticated user.
   static const empty = User(id: '');
@@ -34,27 +34,27 @@ class User extends Equatable {
   bool get isNotEmpty => this != User.empty;
 
   @override
-  List<Object?> get props => [email, id, name, photo];
+  List<Object?> get props => [email, id, fullname, photo];
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'name': name,
+      'fullname': fullname,
       'email': email,
       'photo': photo,
-      'access_token': access_token,
+      'accessToken': accessToken,
     };
   }
 
-  static Future<User> fromJson(jsonDecode) {
+  static Future<User> fromJson(dynamic jsonDecode) {
     return Future.delayed(
       const Duration(milliseconds: 300),
       () => User(
         id: jsonDecode['id'] as String,
         email: jsonDecode['email'] as String,
-        name: jsonDecode['name'] as String,
+        fullname: jsonDecode['fullname'] as String,
         photo: jsonDecode['photo'] as String,
-        access_token: jsonDecode['access_token'] as String,
+        accessToken: jsonDecode['accessToken'] as String,
       ),
     );
   }

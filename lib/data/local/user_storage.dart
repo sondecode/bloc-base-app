@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_bloc_app_template/bloc/theme/app_theme.dart';
 import 'package:flutter_bloc_app_template/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,7 +13,6 @@ class SharedPreferencesUserStorage implements UserStorage {
   SharedPreferencesUserStorage(this.sharedPreferences);
 
   static const String _userData = '';
-  static const String _token = '';
 
   final SharedPreferences sharedPreferences;
 

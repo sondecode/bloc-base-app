@@ -24,7 +24,13 @@ Future<User> getToken(String u, String p) async {
   if (response.statusCode == 200) {
     var res = json.decode(response.body);
     print(res);
-    return User(id: res['id'].toString(), name: res['name'].toString(), email: res['email'].toString(), access_token: res['access_token'].toString(), photo: res['photo'].toString());
+    return User(id: 
+      res['id'].toString(), 
+      fullname: res['fullname'].toString(),
+      email: res['email'].toString(), 
+      accessToken: res['access_token'].toString(), 
+      photo: 
+      res['avatar'].toString());
   } else {
     print(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));

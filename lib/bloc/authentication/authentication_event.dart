@@ -10,11 +10,4 @@ final class _AuthenticationStatusChanged extends AuthenticationEvent {
   final AuthenticationStatus status;
 }
 
-final class _AuthenticationLoginSuccess extends AuthenticationEvent {
-  const _AuthenticationLoginSuccess(this.user);
-
-  final User user;
-}
-
-
 final class AuthenticationLogoutRequested extends AuthenticationEvent {}

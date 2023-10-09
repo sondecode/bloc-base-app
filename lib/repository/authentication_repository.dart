@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter_bloc_app_template/data/api/auth_api.dart';
 import 'package:flutter_bloc_app_template/data/local/user_storage.dart';
 import 'package:flutter_bloc_app_template/models/user.dart';
 
@@ -24,14 +23,8 @@ class AuthenticationRepository {
       _controller.add(AuthenticationStatus.authenticated);
     }
     catch(e){
-      print(e);
+      throw Exception('Login failed');
     }
-    
-    // if (user != User.empty) {
-      
-    // } else {
-    //   throw Exception('Login failed');
-    // }
   }
 
   void logOut() {

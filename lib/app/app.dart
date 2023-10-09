@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app_template/bloc/authentication/authentication_bloc.dart';
 import 'package:flutter_bloc_app_template/bloc/init/init_bloc.dart';
-import 'package:flutter_bloc_app_template/data/local/user_storage.dart';
 import 'package:flutter_bloc_app_template/di/di_container.dart';
 import 'package:flutter_bloc_app_template/generated/l10n.dart';
 import 'package:flutter_bloc_app_template/index.dart';
@@ -39,7 +38,8 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AuthenticationBloc(
-              authenticationRepository: RepositoryProvider.of<AuthenticationRepository>(context), 
+              authenticationRepository: RepositoryProvider
+                .of<AuthenticationRepository>(context), 
               userRepository: RepositoryProvider.of<UserRepository>(context)
               )
           ),
