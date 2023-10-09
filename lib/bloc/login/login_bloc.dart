@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc_app_template/data/api/auth_api.dart';
 import 'package:flutter_bloc_app_template/models/login_models.dart';
 import 'package:flutter_bloc_app_template/repository/authentication_repository.dart';
 import 'package:formz/formz.dart';
@@ -52,9 +53,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (state.isValid) {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
       try {
+        var token = await getToken( state.username.value, state.password.value);
         await _authenticationRepository.logIn(
-          username: state.username.value,
-          password: state.password.value,
+          token
         );
         emit(state.copyWith(status: FormzSubmissionStatus.success));
       } catch (_) {
