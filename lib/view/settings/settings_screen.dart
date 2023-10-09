@@ -4,6 +4,7 @@ import 'package:flutter_bloc_app_template/bloc/authentication/authentication_blo
 import 'package:flutter_bloc_app_template/bloc/theme/app_theme.dart';
 import 'package:flutter_bloc_app_template/generated/l10n.dart';
 import 'package:flutter_bloc_app_template/index.dart';
+import 'package:flutter_bloc_app_template/utils/string_utils.dart';
 
 import 'settings.dart';
 
@@ -20,14 +21,61 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          Builder(
+          Center(
+            child: Builder(
               builder: (context) {
-                final userId = context.select(
-                  (AuthenticationBloc bloc) => bloc.state.user.id,
+                final User userData = context.select(
+                  (AuthenticationBloc bloc) => bloc.state.user,
                 );
-                return Text('UserID: $userId');
-              },
+                return Column(
+                  children: [
+                    const SizedBox(height: 40),
+                    Stack(
+                          children: [
+                            SizedBox(
+                              width: 120,
+                              height: 120,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100), child: ItemAvatar(
+                          imageUrl: userData.photo.toString(),
+                          shortenUserName: userData.fullname!.getFormattedName(),
+                        ),),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                width: 35,
+                                height: 35,
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: ThemeData().primaryColor),
+                                child: const Icon(
+                                  Icons.edit,
+                                  color: Colors.black,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Text('${userData.fullname}',
+                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 20),
+
+                        /// -- BUTTON
+                        SizedBox(
+                          width: 200,
+                          child: FilledButton(onPressed: (){}, child: const Text('Chỉnh sửa thông tin')),
+                        ),
+                        const SizedBox(height: 30),
+                        Divider(color: ThemeData().hintColor),
+                        const SizedBox(height: 10),
+                  ],
+                );
+              }
             ),
+          ),
+          
           BlocConsumer<ThemeCubit, AppTheme>(
             builder: (context, state) => SettingCell.icon(
               icon: AppIcons.settingsTheme,

@@ -30,7 +30,7 @@ Future<User> getToken(String u, String p) async {
       email: res['email'].toString(), 
       accessToken: res['access_token'].toString(), 
       photo: 
-      res['avatar'].toString());
+      res['avatar']!=null? res['avatar'].toString():'');
   } else {
     print(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));

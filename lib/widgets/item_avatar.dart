@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_app_template/constants/url.dart';
 import 'package:flutter_bloc_app_template/index.dart';
 
 class ItemAvatar extends StatelessWidget {
@@ -14,7 +15,7 @@ class ItemAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return imageUrl.isNotEmpty
-        ? CircleAvatar(backgroundImage: NetworkImage(imageUrl))
+        ? CircleAvatar(backgroundImage: NetworkImage(baseUrlHTTPS + imageUrl))
         : NameAvatar(name: shortenUserName);
   }
 }
