@@ -9,6 +9,7 @@ class SettingCell extends StatelessWidget {
     this.onTap,
     this.contentPadding,
     this.dense = false,
+    this.expandable = false,
   }) : super(key: key);
 
   factory SettingCell.icon({
@@ -18,6 +19,7 @@ class SettingCell extends StatelessWidget {
     VoidCallback? onTap,
     EdgeInsets? contentPadding,
     bool dense = false,
+    bool expandable = false,
   }) {
     return SettingCell(
       key: key,
@@ -26,6 +28,7 @@ class SettingCell extends StatelessWidget {
       onTap: onTap,
       contentPadding: contentPadding,
       dense: dense,
+      expandable: expandable,
     );
   }
 
@@ -33,6 +36,7 @@ class SettingCell extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
   final EdgeInsets? contentPadding;
+  final bool expandable;
   final bool dense;
 
   @override
@@ -52,7 +56,7 @@ class SettingCell extends StatelessWidget {
           ),
         ],
       ),
-      trailing: const Icon(AppIcons.chevronRight),
+      trailing: expandable ? const Icon(AppIcons.chevronRight) : null,
       contentPadding: contentPadding,
       onTap: onTap,
       dense: dense,

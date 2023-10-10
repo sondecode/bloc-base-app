@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app_template/index.dart';
 import 'package:flutter_bloc_app_template/view/dashboard/dashboard_screen.dart';
 import 'package:flutter_bloc_app_template/view/login/login_page.dart';
+import 'package:flutter_bloc_app_template/view/settings/view/profile_update_screen.dart';
 
 const List<NavDestination> destinations = [
   NavDestination(
@@ -32,6 +33,7 @@ class Routes {
   static const login = 'login';
   static const dashboard = 'dashboard';
   static const emailList = 'emailList';
+  static const updateProfile = 'updateProfile';
 }
 
 final GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
@@ -42,6 +44,7 @@ class NavigationService {
     Routes.emailList: (_) => const EmailListScreen(),
     Routes.dashboard: (_) => const DashboardScreen(),
     Routes.login: (_) => const LoginPage(),
+    Routes.updateProfile: (_) => const UpdateProfileScreen(),
   };
 
   // iOS: full screen routes pop up from the bottom and disappear vertically too
